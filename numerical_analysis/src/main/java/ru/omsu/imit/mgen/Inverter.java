@@ -67,11 +67,6 @@ public class Inverter {
                 a[i][j] /= arr[i];
             }
         }
-        /*for(int i = n-1; i >=0; i--) {
-            for(int j = 0; j < i; j++) {
-                a[i][j] = 0;
-            }
-        }*/
     }
 
     public void invertMatrix(double[][] a, int n) {
@@ -131,8 +126,62 @@ public class Inverter {
         }
     }
 
-    public void triangulate(double[][] a, int n) {
-        for(int j = 0; j < n-1; j++) {
+    public void swapCols(double[][] a, int n, int i, int j) {
+        double x;
+        for(int k = 0; k < n; k++) {
+            x = a[k][i];
+            a[k][i] = a[k][j];
+            a[k][j] = x;
+        }
+    }
+
+    public void swapRows(double[][] a, int n, int i, int j) {
+        double x;
+        for(int k = 0; k < n; k++) {
+            x = a[i][k];
+            a[i][k] = a[j][k];
+            a[j][k] = x;
+        }
+    }
+
+    public double colNorm(double[][] a, int n, int col) {
+        double ret = 0;
+        for(int k = 0; k < n; k++) {
+            ret += a[k][col]*a[k][col];
+        }
+        return ret;
+    }
+
+
+    public void triangulate(double[][] a, int n, int[] col_transp, int[] row_transp) {
+        for(int j = 0; j < n-1; j++) {/*
+            // Перестановка столбцов
+            int maxIndex = j;
+            double max = -1;
+            double x;
+            for(int k = j; k < n-1; k++) {
+                x = colNorm(a, n, k);
+                if (x > max) {
+                    max = x;
+                    maxIndex = k;
+                }
+            }
+            col_transp[j] = maxIndex;
+            swapCols(a, n, j, maxIndex);
+
+            // Перестановка строк
+            maxIndex = j + 1;
+            max = -1;
+            for(int k = j + 1; k < n; k++) {
+                x = a[k][j];
+                if (x > max) {
+                    max = x;
+                    maxIndex = k;
+                }
+            }
+            row_transp[j+1] = maxIndex;
+            swapRows(a, n, j+1, maxIndex);*/
+
             for(int i = j+1; i < n; i++) {
                 rotate(a, n, j, i, j);
             }
@@ -147,7 +196,7 @@ public class Inverter {
     /**
      * @return 2-elemental array containing c and s
      */
-    public double[] loadTransformationParams(double[][] a, double q) {
+    public double[] loadTransformationParams(double q) {
         boolean negativeS = q < 0;
         double c, s;
 
@@ -162,7 +211,7 @@ public class Inverter {
         return ret;
     }
 
-    public void multiplicationErgonomic(double[][] a, int n) {
+    public void multiplicationErgonomic(double[][] a, int n, int[] col_transp, int[] row_transp) {
         double[] q = new double[n];
 
         for(int j = n-2; j >=0; j--) {
@@ -172,13 +221,16 @@ public class Inverter {
             }
             // Осуществить поворот
             for(int i = n-1; i >= j+1; i--) {
-                double[] params = loadTransformationParams(a, q[i]);
+                double[] params = loadTransformationParams(q[i]);
                 double c = params[0];
                 double s = params[1];
                 rotateReverse(a, n, i, i, j, c, s);
-            }
+            }/*
+            // Поменять #строки местами
+            swapCols(a, n, j+1, row_transp[j+1]);
 
-            // Поменять столбцы местами
+            // Поменять #столбцы местами
+            swapRows(a, n, j, col_transp[j]);*/
         }
 
     }
@@ -187,7 +239,10 @@ public class Inverter {
 
         Gen gen = new Gen();
 
-        triangulate(a, n);
+        int[] col_transp = new int[n];
+        int[] row_transp = new int[n];
+
+        triangulate(a, n, col_transp, row_transp);
 
         //gen.print_matr(a, n);
 
@@ -195,7 +250,7 @@ public class Inverter {
 
         //gen.print_matr(a, n);
 
-        multiplicationErgonomic(a, n);
+        multiplicationErgonomic(a, n, col_transp, row_transp);
 
     }
 
