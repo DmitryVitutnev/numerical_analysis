@@ -154,7 +154,7 @@ public class Inverter {
 
 
     public void triangulate(double[][] a, int n, int[] col_transp, int[] row_transp) {
-        for(int j = 0; j < n-1; j++) {/*
+        for(int j = 0; j < n-1; j++) {
             // Перестановка столбцов
             int maxIndex = j;
             double max = -1;
@@ -180,7 +180,7 @@ public class Inverter {
                 }
             }
             row_transp[j+1] = maxIndex;
-            swapRows(a, n, j+1, maxIndex);*/
+            swapRows(a, n, j+1, maxIndex);
 
             for(int i = j+1; i < n; i++) {
                 rotate(a, n, j, i, j);
@@ -225,12 +225,12 @@ public class Inverter {
                 double c = params[0];
                 double s = params[1];
                 rotateReverse(a, n, i, i, j, c, s);
-            }/*
+            }
             // Поменять #строки местами
             swapCols(a, n, j+1, row_transp[j+1]);
 
             // Поменять #столбцы местами
-            swapRows(a, n, j, col_transp[j]);*/
+            swapRows(a, n, j, col_transp[j]);
         }
 
     }
