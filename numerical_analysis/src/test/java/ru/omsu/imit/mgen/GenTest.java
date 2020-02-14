@@ -91,4 +91,94 @@ public class GenTest
 		System.out.println("------------------------------------");
 	}
 
+	@Test
+	public void Test1()
+	{
+		System.out.println("Test1");
+		int n = N;
+		double alpha = ALPHA;
+		double beta  = BETA;
+
+		double[][] a = new double[n][n];
+
+		double[][] a_inv = new double[n][n];
+
+		Gen g = new Gen();
+
+		g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
+		//	g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
+		//	g.mygen ( a, a_inv, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
+
+		g.print_matr(a,n);
+		g.print_matr(a_inv,n);
+
+		Inverter inverter = new Inverter();
+
+		inverter.invertMatrixErgonomic(a, n);
+
+		g.print_matr(a,n);
+
+		System.out.println("------------------------------------");
+	}
+
+	@Test
+	public void Test2()
+	{
+		System.out.println("Test2");
+		int n = N;
+		double alpha = ALPHA;
+		double beta  = BETA;
+
+		double[][] a = new double[n][n];
+
+		double[][] a_inv = new double[n][n];
+
+		Gen g = new Gen();
+
+		//g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
+		g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
+		//	g.mygen ( a, a_inv, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
+
+		g.print_matr(a,n);
+		g.print_matr(a_inv,n);
+
+		Inverter inverter = new Inverter();
+
+		inverter.invertMatrixErgonomic(a, n);
+
+		g.print_matr(a,n);
+
+		System.out.println("------------------------------------");
+	}
+
+	@Test
+	public void Test3()
+	{
+		System.out.println("Test3");
+		int n = N;
+		double alpha = ALPHA;
+		double beta  = BETA;
+
+		double[][] a = new double[n][n];
+
+		double[][] a_inv = new double[n][n];
+
+		Gen g = new Gen();
+
+		//g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
+		//g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
+		g.mygen ( a, a_inv, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
+
+		g.print_matr(a,n);
+		g.print_matr(a_inv,n);
+
+		Inverter inverter = new Inverter();
+
+		inverter.invertMatrixErgonomic(a, n);
+
+		g.print_matr(a,n);
+
+		System.out.println("------------------------------------");
+	}
+
 }

@@ -189,11 +189,11 @@ public class Inverter {
 
         triangulate(a, n);
 
-        gen.print_matr(a, n);
+        //gen.print_matr(a, n);
 
         invertTriangle(a, n);
 
-        gen.print_matr(a, n);
+        //gen.print_matr(a, n);
 
         multiplicationErgonomic(a, n);
 
