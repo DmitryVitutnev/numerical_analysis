@@ -103,16 +103,16 @@ public class Inverter {
      */
     public void rotate(double[][] a, int n, int col, int i, int j) {
 
-        /*double z = Math.max(Math.abs(a[i][col]), Math.abs(a[j][col]));
+        double z = Math.max(Math.abs(a[i][col]), Math.abs(a[j][col]));
         double aip = a[i][col]/z;
         double ajp = a[j][col]/z;
-        double alp = Math.max(Math.abs(aip), Math.abs(ajp));*/
+        double alp = Math.min(Math.abs(aip), Math.abs(ajp));
         double c;
         double s;
-        //c = ajp/Math.sqrt(1+alp*alp);
-        //s = -aip/Math.sqrt(1+alp*alp);
-        c = a[j][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
-        s = -a[i][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
+        c = ajp/Math.sqrt(1+alp*alp);
+        s = -aip/Math.sqrt(1+alp*alp);
+        //c = a[j][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
+        //s = -a[i][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
 
 
         double aj, ai;

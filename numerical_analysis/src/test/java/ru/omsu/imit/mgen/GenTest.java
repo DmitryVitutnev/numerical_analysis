@@ -8,7 +8,7 @@ import org.junit.Test;
 public class GenTest 
 {
 
-	private int N = 10;
+	private int N = 150;
 	private double ALPHA = 1.;
 	private double BETA  = 1.e+3;
 
