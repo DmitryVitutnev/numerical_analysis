@@ -10,6 +10,8 @@ public class Inverter {
         double c;
         s = -a[i][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
         c = a[j][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
+
+
         double aj, ai;
         for(int k = 0; k < n; k++) {
             aj = a[j][k];
@@ -100,10 +102,19 @@ public class Inverter {
      * Выполняет одно зануление в алгоритме приведения к верхнетреугольному виду, не трогая нули, полученные ранее
      */
     public void rotate(double[][] a, int n, int col, int i, int j) {
+
+        /*double z = Math.max(Math.abs(a[i][col]), Math.abs(a[j][col]));
+        double aip = a[i][col]/z;
+        double ajp = a[j][col]/z;
+        double alp = Math.max(Math.abs(aip), Math.abs(ajp));*/
         double c;
         double s;
+        //c = ajp/Math.sqrt(1+alp*alp);
+        //s = -aip/Math.sqrt(1+alp*alp);
         c = a[j][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
         s = -a[i][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
+
+
         double aj, ai;
         for(int k = col; k < n; k++) {
             aj = a[j][k];
@@ -135,12 +146,30 @@ public class Inverter {
         }
     }
 
+    public void swapColsBack(double[][] a, int n, int i, int coli) {
+        double x;
+        for(int k = i; k < n; k++) {
+            x = a[i][k];
+            a[i][k] = a[coli][k];
+            a[coli][k] = x;
+        }
+    }
+
     public void swapRows(double[][] a, int n, int i, int j) {
         double x;
-        for(int k = 0; k < n; k++) {
+        for(int k = i-1; k < n; k++) {
             x = a[i][k];
             a[i][k] = a[j][k];
             a[j][k] = x;
+        }
+    }
+
+    public void swapRowsBack(double[][] a, int n, int i, int rowi) {
+        double x;
+        for(int k = 0; k < n; k++) {
+            x = a[k][i];
+            a[k][i] = a[k][rowi];
+            a[k][rowi] = x;
         }
     }
 
@@ -227,10 +256,10 @@ public class Inverter {
                 rotateReverse(a, n, i, i, j, c, s);
             }
             // Поменять #строки местами
-            swapCols(a, n, j+1, row_transp[j+1]);
+            swapRowsBack(a, n, j+1, row_transp[j+1]);
 
             // Поменять #столбцы местами
-            swapRows(a, n, j, col_transp[j]);
+            swapColsBack(a, n, j, col_transp[j]);
         }
 
     }

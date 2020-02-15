@@ -8,7 +8,7 @@ import org.junit.Test;
 public class GenTest 
 {
 
-	private int N = 3;
+	private int N = 10;
 	private double ALPHA = 1.;
 	private double BETA  = 1.e+3;
 
@@ -58,9 +58,9 @@ public class GenTest
 
 		g.print_matr(arr1,3);
 
-		double[][] identity = new double[3][3];
+		/*double[][] identity = new double[3][3];
 		g.matr_mul(arr1, arrInv1, identity, 3);
-		g.print_matr(identity,3);
+		g.print_matr(identity,3);*/
 		System.out.println("------------------------------------");
 	}
 
@@ -177,6 +177,9 @@ public class GenTest
 		inverter.invertMatrixErgonomic(a, n);
 
 		g.print_matr(a,n);
+
+		System.out.println(g.matr_inf_norm(a_inv, n));
+		System.out.println(g.matr_inf_norm(a, n));
 
 		System.out.println("------------------------------------");
 	}
