@@ -106,8 +106,8 @@ public class GenTest
 		Gen g = new Gen();
 
 		g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
-		//	g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
-		//	g.mygen ( a, a_inv, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
+		//g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
+		//g.mygen ( a, a_inv, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
 
 		g.print_matr(a,n);
 		g.print_matr(a_inv,n);
@@ -117,6 +117,11 @@ public class GenTest
 		inverter.invertMatrixErgonomic(a, n);
 
 		g.print_matr(a,n);
+
+		g.matr_inf_norm(a,n);
+
+		System.out.println(g.matr_inf_norm(a_inv, n));
+		System.out.println(g.matr_inf_norm(a, n));
 
 		System.out.println("------------------------------------");
 	}
@@ -176,7 +181,7 @@ public class GenTest
 
 		inverter.invertMatrixErgonomic(a, n);
 
-		g.print_matr(a,n);
+		g.matr_inf_norm(a,n);
 
 		System.out.println(g.matr_inf_norm(a_inv, n));
 		System.out.println(g.matr_inf_norm(a, n));

@@ -1,5 +1,7 @@
 package ru.omsu.imit.mgen;
 
+import java.math.BigDecimal;
+
 public class Inverter {
 
 
@@ -104,6 +106,9 @@ public class Inverter {
     public void rotate(double[][] a, int n, int col, int i, int j) {
 
         double z = Math.max(Math.abs(a[i][col]), Math.abs(a[j][col]));
+        if(z == 0) {
+            return;
+        }
         double aip = a[i][col]/z;
         double ajp = a[j][col]/z;
         double alp = Math.min(Math.abs(aip), Math.abs(ajp));
