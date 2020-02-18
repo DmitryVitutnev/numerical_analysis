@@ -8,9 +8,9 @@ import org.junit.Test;
 public class GenTest 
 {
 
-	private int N = 150;
+	private int N = 100;
 	private double ALPHA = 1.;
-	private double BETA  = 1.e+3;
+	private double BETA  = 1.;
 
 	@Test
 	public void GenTest()
@@ -53,8 +53,7 @@ public class GenTest
 		g.print_matr(arr1,3);
 
 
-		Inverter inverter = new Inverter();
-		inverter.invertMatrixErgonomic(arr1,3);
+		Inverter.invertMatrix(arr1,3);
 
 		g.print_matr(arr1,3);
 
@@ -80,8 +79,7 @@ public class GenTest
 		g.print_matr(arr,3);
 
 
-		Inverter inverter = new Inverter();
-		inverter.invertMatrixErgonomic(arr,3);
+		Inverter.invertMatrix(arr,3);
 
 		g.print_matr(arr,3);
 
@@ -92,6 +90,48 @@ public class GenTest
 	}
 
 	@Test
+	public void UniteAllTests() {
+		ALPHA = 1.;
+		BETA = 1.;
+		for(int i = 0; i <= 10; i++) {
+			Test1();
+			BETA *= 10;
+		}
+		BETA = 1.;
+		for(int i = 0; i <= 10; i++) {
+			Test1();
+			ALPHA /= 10;
+		}
+
+		ALPHA = 1.;
+		BETA = 1.;
+		for(int i = 0; i <= 10; i++) {
+			Test2();
+			BETA *= 10;
+		}
+		BETA = 1.;
+		for(int i = 0; i <= 10; i++) {
+			Test2();
+			ALPHA /= 10;
+		}
+
+		ALPHA = 1.;
+		BETA = 1.;
+		for(int i = 0; i <= 10; i++) {
+			Test3();
+			BETA *= 10;
+		}
+		BETA = 1.;
+		for(int i = 0; i <= 10; i++) {
+			Test3();
+			ALPHA /= 10;
+		}
+
+
+
+	}
+
+	@Test
 	public void Test1()
 	{
 		System.out.println("Test1");
@@ -99,29 +139,44 @@ public class GenTest
 		double alpha = ALPHA;
 		double beta  = BETA;
 
+
 		double[][] a = new double[n][n];
 
-		double[][] a_inv = new double[n][n];
+		double[][] a_expect = new double[n][n];
 
 		Gen g = new Gen();
 
-		g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
-		//g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
-		//g.mygen ( a, a_inv, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
+		g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
+		//g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
+		//g.mygen ( a, a_expect, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
 
-		g.print_matr(a,n);
-		g.print_matr(a_inv,n);
+		double[][] a_old = new double[n][n];
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				a_old[i][j] = a[i][j];
+			}
+		}
 
-		Inverter inverter = new Inverter();
 
-		inverter.invertMatrixErgonomic(a, n);
+		Inverter.invertMatrix(a, n);
+		double normA = g.matr_inf_norm(a_old, n);
+		double normAr = g.matr_inf_norm(a_expect, n);
+		double vA = normA * normAr;
+		double normZ = g.matr_inf_norm(Inverter.subtact(a, a_expect, n), n);
+		double ksi = normZ / normAr;
+		double[][] mulAAr = new double[n][n];
+		g.matr_mul(a_old, a, mulAAr, n);
+		double normR = g.matr_inf_norm(Inverter.subtact(mulAAr, Inverter.createIdentityMatrix(n), n), n);
 
-		g.print_matr(a,n);
 
-		g.matr_inf_norm(a,n);
-
-		System.out.println(g.matr_inf_norm(a_inv, n));
-		System.out.println(g.matr_inf_norm(a, n));
+		System.out.printf("alpha = %e\n", alpha);
+		System.out.printf("beta = %e\n", beta);
+		System.out.printf("||A|| = %e\n", normA);
+		System.out.printf("||A-1|| = %e\n", normAr);
+		System.out.printf("v(A) = %e\n", vA);
+		System.out.printf("||z|| = %e\n", normZ);
+		System.out.printf("ksi = %e\n", ksi);
+		System.out.printf("||r|| = %e\n", normR);
 
 		System.out.println("------------------------------------");
 	}
@@ -134,24 +189,44 @@ public class GenTest
 		double alpha = ALPHA;
 		double beta  = BETA;
 
+
 		double[][] a = new double[n][n];
 
-		double[][] a_inv = new double[n][n];
+		double[][] a_expect = new double[n][n];
 
 		Gen g = new Gen();
 
-		//g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
-		g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
-		//	g.mygen ( a, a_inv, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
+		g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
+		//g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
+		//g.mygen ( a, a_expect, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
 
-		g.print_matr(a,n);
-		g.print_matr(a_inv,n);
+		double[][] a_old = new double[n][n];
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				a_old[i][j] = a[i][j];
+			}
+		}
 
-		Inverter inverter = new Inverter();
 
-		inverter.invertMatrixErgonomic(a, n);
+		Inverter.invertMatrix(a, n);
+		double normA = g.matr_inf_norm(a_old, n);
+		double normAr = g.matr_inf_norm(a_expect, n);
+		double vA = normA * normAr;
+		double normZ = g.matr_inf_norm(Inverter.subtact(a, a_expect, n), n);
+		double ksi = normZ / normAr;
+		double[][] mulAAr = new double[n][n];
+		g.matr_mul(a_old, a, mulAAr, n);
+		double normR = g.matr_inf_norm(Inverter.subtact(mulAAr, Inverter.createIdentityMatrix(n), n), n);
 
-		g.print_matr(a,n);
+
+		System.out.printf("alpha = %e\n", alpha);
+		System.out.printf("beta = %e\n", beta);
+		System.out.printf("||A|| = %e\n", normA);
+		System.out.printf("||A-1|| = %e\n", normAr);
+		System.out.printf("v(A) = %e\n", vA);
+		System.out.printf("||z|| = %e\n", normZ);
+		System.out.printf("ksi = %e\n", ksi);
+		System.out.printf("||r|| = %e\n", normR);
 
 		System.out.println("------------------------------------");
 	}
@@ -164,27 +239,44 @@ public class GenTest
 		double alpha = ALPHA;
 		double beta  = BETA;
 
+
 		double[][] a = new double[n][n];
 
-		double[][] a_inv = new double[n][n];
+		double[][] a_expect = new double[n][n];
 
 		Gen g = new Gen();
 
-		//g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
-		//g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
-		g.mygen ( a, a_inv, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
+		g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
+		//g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
+		//g.mygen ( a, a_expect, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
 
-		g.print_matr(a,n);
-		g.print_matr(a_inv,n);
+		double[][] a_old = new double[n][n];
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				a_old[i][j] = a[i][j];
+			}
+		}
 
-		Inverter inverter = new Inverter();
 
-		inverter.invertMatrixErgonomic(a, n);
+		Inverter.invertMatrix(a, n);
+		double normA = g.matr_inf_norm(a_old, n);
+		double normAr = g.matr_inf_norm(a_expect, n);
+		double vA = normA * normAr;
+		double normZ = g.matr_inf_norm(Inverter.subtact(a, a_expect, n), n);
+		double ksi = normZ / normAr;
+		double[][] mulAAr = new double[n][n];
+		g.matr_mul(a_old, a, mulAAr, n);
+		double normR = g.matr_inf_norm(Inverter.subtact(mulAAr, Inverter.createIdentityMatrix(n), n), n);
 
-		g.matr_inf_norm(a,n);
 
-		System.out.println(g.matr_inf_norm(a_inv, n));
-		System.out.println(g.matr_inf_norm(a, n));
+		System.out.printf("alpha = %e\n", alpha);
+		System.out.printf("beta = %e\n", beta);
+		System.out.printf("||A|| = %e\n", normA);
+		System.out.printf("||A-1|| = %e\n", normAr);
+		System.out.printf("v(A) = %e\n", vA);
+		System.out.printf("||z|| = %e\n", normZ);
+		System.out.printf("ksi = %e\n", ksi);
+		System.out.printf("||r|| = %e\n", normR);
 
 		System.out.println("------------------------------------");
 	}

@@ -1,47 +1,8 @@
 package ru.omsu.imit.mgen;
 
-import java.math.BigDecimal;
-
 public class Inverter {
 
-
-
-
-    public void rotateWithIdentityMatrix(double[][] a, double[][] b, int n, int col, int i, int j) {
-        double s;
-        double c;
-        s = -a[i][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
-        c = a[j][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
-
-
-        double aj, ai;
-        for(int k = 0; k < n; k++) {
-            aj = a[j][k];
-            ai = a[i][k];
-
-            a[j][k] = c * aj - s * ai;
-            a[i][k] = s * aj + c * ai;
-        }
-        a[i][col] = 0.;
-        double bj, bi;
-        for(int k = 0; k < n; k++) {
-            bj = b[j][k];
-            bi = b[i][k];
-
-            b[j][k] = c * bj - s * bi;
-            b[i][k] = s * bj + c * bi;
-        }
-    }
-
-    public void triangulateWithIdentityMatrix(double[][] a, double[][] b, int n) {
-        for(int j = 0; j < n-1; j++) {
-            for(int i = j+1; i < n; i++) {
-                rotateWithIdentityMatrix(a, b, n, j, i, j);
-            }
-        }
-    }
-
-    public double[][] createIdentityMatrix(int n) {
+    public static double[][] createIdentityMatrix(int n) {
         double[][] ret = new double[n][n];
 
         for(int i = 0; i < n; i++) {
@@ -56,7 +17,7 @@ public class Inverter {
         return ret;
     }
 
-    public void invertTriangle(double[][] a, int n) {
+    public static void invertTriangle(double[][] a, int n) {
         double[] arr = new double[n];
         for(int i = n-1; i >= 0; i--) {
             for(int j = i; j < n; j++) {
@@ -73,37 +34,11 @@ public class Inverter {
         }
     }
 
-    public void invertMatrix(double[][] a, int n) {
-
-        Gen gen = new Gen();
-
-        double[][] b = createIdentityMatrix(n);
-
-        triangulateWithIdentityMatrix(a, b, n);
-
-        gen.print_matr(a, n);
-
-        invertTriangle(a, n);
-
-        gen.print_matr(a, n);
-
-        double[][] c = new double[n][n];
-
-
-        gen.matr_mul(a, b, c, n);
-
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                a[i][j] = c[i][j];
-            }
-        }
-    }
-
 
     /**
      * Выполняет одно зануление в алгоритме приведения к верхнетреугольному виду, не трогая нули, полученные ранее
      */
-    public void rotate(double[][] a, int n, int col, int i, int j) {
+    public static void rotate(double[][] a, int n, int col, int i, int j) {
 
         double z = Math.max(Math.abs(a[i][col]), Math.abs(a[j][col]));
         if(z == 0) {
@@ -131,7 +66,7 @@ public class Inverter {
         saveTransformationParams(a, i, col, c, s);
     }
 
-    public void rotateReverse(double[][] a, int n, int row, int i, int j, double c, double s) {
+    public static void rotateReverse(double[][] a, int n, int row, int i, int j, double c, double s) {
         double aj, ai;
         for(int k = 0; k < n; k++) {
             aj = a[k][j];
@@ -142,7 +77,7 @@ public class Inverter {
         }
     }
 
-    public void swapCols(double[][] a, int n, int i, int j) {
+    public static void swapCols(double[][] a, int n, int i, int j) {
         double x;
         for(int k = 0; k < n; k++) {
             x = a[k][i];
@@ -151,7 +86,7 @@ public class Inverter {
         }
     }
 
-    public void swapColsBack(double[][] a, int n, int i, int coli) {
+    public static void swapColsBack(double[][] a, int n, int i, int coli) {
         double x;
         for(int k = i; k < n; k++) {
             x = a[i][k];
@@ -160,7 +95,7 @@ public class Inverter {
         }
     }
 
-    public void swapRows(double[][] a, int n, int i, int j) {
+    public static void swapRows(double[][] a, int n, int i, int j) {
         double x;
         for(int k = i-1; k < n; k++) {
             x = a[i][k];
@@ -169,7 +104,7 @@ public class Inverter {
         }
     }
 
-    public void swapRowsBack(double[][] a, int n, int i, int rowi) {
+    public static void swapRowsBack(double[][] a, int n, int i, int rowi) {
         double x;
         for(int k = 0; k < n; k++) {
             x = a[k][i];
@@ -178,7 +113,7 @@ public class Inverter {
         }
     }
 
-    public double colNorm(double[][] a, int n, int col) {
+    public static double colNorm(double[][] a, int n, int col) {
         double ret = 0;
         for(int k = 0; k < n; k++) {
             ret += a[k][col]*a[k][col];
@@ -187,7 +122,7 @@ public class Inverter {
     }
 
 
-    public void triangulate(double[][] a, int n, int[] col_transp, int[] row_transp) {
+    public static void triangulate(double[][] a, int n, int[] col_transp, int[] row_transp) {
         for(int j = 0; j < n-1; j++) {
             // Перестановка столбцов
             int maxIndex = j;
@@ -222,7 +157,7 @@ public class Inverter {
         }
     }
 
-    public void saveTransformationParams(double[][] a, int row, int col, double c, double s) {
+    public static void saveTransformationParams(double[][] a, int row, int col, double c, double s) {
         a[row][col] = c + Math.signum(s);
     }
 
@@ -230,7 +165,7 @@ public class Inverter {
     /**
      * @return 2-elemental array containing c and s
      */
-    public double[] loadTransformationParams(double q) {
+    public static double[] loadTransformationParams(double q) {
         boolean negativeS = q < 0;
         double c, s;
 
@@ -245,7 +180,7 @@ public class Inverter {
         return ret;
     }
 
-    public void multiplicationErgonomic(double[][] a, int n, int[] col_transp, int[] row_transp) {
+    public static void multiplication(double[][] a, int n, int[] col_transp, int[] row_transp) {
         double[] q = new double[n];
 
         for(int j = n-2; j >=0; j--) {
@@ -269,7 +204,7 @@ public class Inverter {
 
     }
 
-    public void invertMatrixErgonomic(double[][] a, int n) {
+    public static void invertMatrix(double[][] a, int n) {
 
         Gen gen = new Gen();
 
@@ -284,8 +219,18 @@ public class Inverter {
 
         //gen.print_matr(a, n);
 
-        multiplicationErgonomic(a, n, col_transp, row_transp);
+        multiplication(a, n, col_transp, row_transp);
 
+    }
+
+    public static double[][] subtact(double[][] a, double[][] b, int n) {
+        double[][] ret = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                ret[i][j] = a[i][j] - b[i][j];
+            }
+        }
+        return ret;
     }
 
 

@@ -77,17 +77,17 @@ public class Gen
     public void mygen ( double[][] a, double[][] a_inv, int n, double alpha, double beta, int sign_law, int lambda_law, int variant, int schema )
     {
         int i,j,k;
-
+/*
         System.out.println("   M A T R I X  G E N.  ");
         System.out.println("              N = "+ n);
         System.out.println(" | lambda_min | = "+alpha);
         System.out.println(" | lambda_max | = "+beta);
-
+*/
     	double[] lambda = new double[n];
-
+/*
         // распределение знаков
         System.out.println(" sign_law = "+sign_law);
-
+*/
 	double[] sign   = new double[n];
         for( i=0; i<n; i++ ) sign[i] = 1.;
 
@@ -111,19 +111,19 @@ public class Gen
 */
 
         //распределение собственнных чисел
-        System.out.println(" lambda_law = "+lambda_law);
+        //System.out.println(" lambda_law = "+lambda_law);
 
 	double[] kappa   = new double[n];
         for( i=0; i<n; i++ ) kappa[i] = (double)i/(double)(n-1);
         switch(lambda_law)
         {
             case 1:
-                System.out.println(" kappa = sqrt( ) ");
+                //System.out.println(" kappa = sqrt( ) ");
                 for( i=0; i<n; i++ ) kappa[i] = Math.sqrt( kappa[i] );
                 break;
 
             case 2:
-                System.out.println(" kappa = sin( ) ");
+                //System.out.println(" kappa = sin( ) ");
                 double pi_half = Math.acos(-1.)*0.5;
                 for( i=0; i<n; i++ ) kappa[i] = Math.sin( pi_half*kappa[i] );
                 break;
@@ -402,7 +402,7 @@ public class Gen
         }//variant
 
 //______________________________________________________________________
-
+/*
         double norm,norm_inv;
 
         norm = matr_inf_norm ( a, n );
@@ -421,17 +421,10 @@ public class Gen
         matr_mul ( a, a_inv, r, n );
         for( i = 0; i < n; i++ ) r[i][i] -= 1.;
 
-/*	cout << "r:" << endl;
-	for( i = 0; i < n; i++ )
-	{
-		for( j = 0; j < n; j++ ) cout << " " << r[i][j];
-		cout << endl;
-	}
-*/
         norm = matr_inf_norm ( r, n );
         System.out.println(" ||R_gen|| = " + norm );
 
-
+*/
     }//mygen
 
 
