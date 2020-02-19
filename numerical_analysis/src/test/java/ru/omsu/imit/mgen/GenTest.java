@@ -196,8 +196,8 @@ public class GenTest
 
 		Gen g = new Gen();
 
-		g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
-		//g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
+		//g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
+		g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
 		//g.mygen ( a, a_expect, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
 
 		double[][] a_old = new double[n][n];
@@ -246,9 +246,9 @@ public class GenTest
 
 		Gen g = new Gen();
 
-		g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
+		//g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 0, 1 ); // симметричная
 		//g.mygen ( a, a_expect, n, alpha, beta, 1, 2, 1, 1 ); //проостой структуры
-		//g.mygen ( a, a_expect, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
+		g.mygen ( a, a_expect, n, alpha, beta, 0, 0, 2, 1 ); //жорданова клетка
 
 		double[][] a_old = new double[n][n];
 		for(int i = 0; i < n; i++) {
