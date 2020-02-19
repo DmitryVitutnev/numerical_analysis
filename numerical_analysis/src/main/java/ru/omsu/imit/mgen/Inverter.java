@@ -25,7 +25,7 @@ public class Inverter {
             }
             a[i][i] = 1./arr[i];
             for(int j = i+1; j < n; j++) {
-                a[i][j] = 0;
+                a[i][j] = 0.;
                 for(int k = i+1; k <= j; k++) {
                     a[i][j] -= arr[k] * a[k][j];
                 }
@@ -97,7 +97,7 @@ public class Inverter {
 
     public static void swapRows(double[][] a, int n, int i, int j) {
         double x;
-        for(int k = i-1; k < n; k++) {
+        for(int k =i-1; k < n; k++) {
             x = a[i][k];
             a[i][k] = a[j][k];
             a[j][k] = x;
@@ -123,7 +123,7 @@ public class Inverter {
 
 
     public static void triangulate(double[][] a, int n, int[] col_transp, int[] row_transp) {
-        for(int j = 0; j < n-1; j++) {
+        for(int j = 0; j < n-1; j++) {/*
             // Перестановка столбцов
             int maxIndex = j;
             double max = -1;
@@ -142,14 +142,14 @@ public class Inverter {
             maxIndex = j + 1;
             max = -1;
             for(int k = j + 1; k < n; k++) {
-                x = a[k][j];
+                x = Math.abs(a[k][j]);
                 if (x > max) {
                     max = x;
                     maxIndex = k;
                 }
             }
             row_transp[j+1] = maxIndex;
-            swapRows(a, n, j+1, maxIndex);
+            swapRows(a, n, j+1, maxIndex);*/
 
             for(int i = j+1; i < n; i++) {
                 rotate(a, n, j, i, j);
@@ -196,10 +196,10 @@ public class Inverter {
                 rotateReverse(a, n, i, i, j, c, s);
             }
             // Поменять #строки местами
-            swapRowsBack(a, n, j+1, row_transp[j+1]);
+            //swapRowsBack(a, n, j+1, row_transp[j+1]);
 
             // Поменять #столбцы местами
-            swapColsBack(a, n, j, col_transp[j]);
+            //swapColsBack(a, n, j, col_transp[j]);
         }
 
     }
