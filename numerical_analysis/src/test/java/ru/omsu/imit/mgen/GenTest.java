@@ -162,7 +162,8 @@ public class GenTest
 		double normA = g.matr_inf_norm(a_old, n);
 		double normAr = g.matr_inf_norm(a_expect, n);
 		double vA = normA * normAr;
-		double normZ = g.matr_inf_norm(Inverter.subtact(a, a_expect, n), n);
+		double[][] a_sub = Inverter.subtact(a, a_expect, n);
+		double normZ = g.matr_inf_norm(a_sub, n);
 		double ksi = normZ / normAr;
 		double[][] mulAAr = new double[n][n];
 		g.matr_mul(a_old, a, mulAAr, n);
@@ -177,6 +178,10 @@ public class GenTest
 		System.out.printf("||z|| = %e\n", normZ);
 		System.out.printf("ksi = %e\n", ksi);
 		System.out.printf("||r|| = %e\n", normR);
+
+		/*g.print_matr(a_old, n);
+		g.print_matr(a_expect, n);
+		g.print_matr(a, n);*/
 
 		System.out.println("------------------------------------");
 	}
