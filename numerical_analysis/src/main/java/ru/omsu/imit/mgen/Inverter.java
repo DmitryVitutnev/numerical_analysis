@@ -41,7 +41,7 @@ public class Inverter {
     public static void rotate(double[][] a, int n, int col, int i, int j) {
 
         double z = Math.max(Math.abs(a[i][col]), Math.abs(a[j][col]));
-        if(a[i][col] == 0) {
+        if(isZero(a[i][col])) {
             return;
         }
         double aip = a[i][col]/z;
@@ -190,7 +190,7 @@ public class Inverter {
             }
             // Осуществить поворот
             for(int i = n-1; i >= j+1; i--) {
-                if(q[i] == 0) {
+                if(isZero(q[i])) {
                     continue;
                 }
                 double[] params = loadTransformationParams(q[i]);
@@ -237,7 +237,7 @@ public class Inverter {
     }
 
     public static boolean isZero(double d) {
-        double EPSILON = 1.e-14;
+        double EPSILON = 1.e-15;
         return (Math.abs(d) < EPSILON);
     }
 

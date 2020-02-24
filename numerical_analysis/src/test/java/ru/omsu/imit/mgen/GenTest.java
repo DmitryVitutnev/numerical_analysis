@@ -2,6 +2,8 @@ package ru.omsu.imit.mgen;
 
 import org.junit.Test;
 
+import java.io.*;
+
 /**
  * Unit test for simple App.
  */
@@ -90,31 +92,39 @@ public class GenTest
 	}
 
 	@Test
-	public void UniteAllTests() {
+	public void UniteAllTests() throws IOException {
+		PrintWriter writer;
 		ALPHA = 1.;
 		BETA = 1.;
-		for(int i = 0; i <= 10; i++) {
+		writer = new PrintWriter(new FileWriter(new File("symmetric.csv"), false));
+		writer.println(""+"alpha"+";"+"beta"+";"+"||A||"+";"+"||A-1||"+";"+"v(A)"+";"+"||z||"+";"+"ksi"+";"+"||r||");
+		writer.flush();
+		for(int i = 0; i <= 15; i++) {
 			Test1();
 			BETA *= 10;
 		}
 		BETA = 1.;
-		for(int i = 0; i <= 10; i++) {
+		for(int i = 0; i <= 15; i++) {
 			Test1();
 			ALPHA /= 10;
 		}
-
+		writer = new PrintWriter(new FileWriter(new File("simple.csv"), false));
+		writer.println(""+"alpha"+";"+"beta"+";"+"||A||"+";"+"||A-1||"+";"+"v(A)"+";"+"||z||"+";"+"ksi"+";"+"||r||");
+		writer.flush();
 		ALPHA = 1.;
 		BETA = 1.;
-		for(int i = 0; i <= 10; i++) {
+		for(int i = 0; i <= 15; i++) {
 			Test2();
 			BETA *= 10;
 		}
 		BETA = 1.;
-		for(int i = 0; i <= 10; i++) {
+		for(int i = 0; i <= 15; i++) {
 			Test2();
 			ALPHA /= 10;
 		}
-
+		writer = new PrintWriter(new FileWriter(new File("jordan.csv"), false));
+		writer.println(""+"alpha"+";"+"beta"+";"+"||A||"+";"+"||A-1||"+";"+"v(A)"+";"+"||z||"+";"+"ksi"+";"+"||r||");
+		writer.flush();
 		ALPHA = 1.;
 		BETA = 1.;
 		for(int i = 0; i <= 10; i++) {
@@ -132,8 +142,7 @@ public class GenTest
 	}
 
 	@Test
-	public void Test1()
-	{
+	public void Test1() throws IOException {
 		System.out.println("Test1");
 		int n = N;
 		double alpha = ALPHA;
@@ -179,6 +188,12 @@ public class GenTest
 		System.out.printf("ksi = %e\n", ksi);
 		System.out.printf("||r|| = %e\n", normR);
 
+
+		PrintWriter writer = new PrintWriter(new FileWriter(new File("symmetric.csv"), true));
+
+		writer.printf("%e;%e;%e;%e;%e;%e;%e;%e\n",alpha,beta,normA,normAr,vA,normZ,ksi,normR);
+		writer.flush();
+
 		/*g.print_matr(a_old, n);
 		g.print_matr(a_expect, n);
 		g.print_matr(a, n);*/
@@ -187,8 +202,7 @@ public class GenTest
 	}
 
 	@Test
-	public void Test2()
-	{
+	public void Test2() throws IOException {
 		System.out.println("Test2");
 		int n = N;
 		double alpha = ALPHA;
@@ -233,12 +247,16 @@ public class GenTest
 		System.out.printf("ksi = %e\n", ksi);
 		System.out.printf("||r|| = %e\n", normR);
 
+		PrintWriter writer = new PrintWriter(new FileWriter(new File("simple.csv"), true));
+
+		writer.printf("%e;%e;%e;%e;%e;%e;%e;%e\n",alpha,beta,normA,normAr,vA,normZ,ksi,normR);
+		writer.flush();
+
 		System.out.println("------------------------------------");
 	}
 
 	@Test
-	public void Test3()
-	{
+	public void Test3() throws IOException {
 		System.out.println("Test3");
 		int n = N;
 		double alpha = ALPHA;
@@ -282,6 +300,11 @@ public class GenTest
 		System.out.printf("||z|| = %e\n", normZ);
 		System.out.printf("ksi = %e\n", ksi);
 		System.out.printf("||r|| = %e\n", normR);
+
+		PrintWriter writer = new PrintWriter(new FileWriter(new File("jordan.csv"), true));
+
+		writer.printf("%e;%e;%e;%e;%e;%e;%e;%e\n",alpha,beta,normA,normAr,vA,normZ,ksi,normR);
+		writer.flush();
 
 		System.out.println("------------------------------------");
 	}
