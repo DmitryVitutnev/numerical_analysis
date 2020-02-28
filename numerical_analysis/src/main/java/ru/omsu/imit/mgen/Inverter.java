@@ -41,7 +41,7 @@ public class Inverter {
     public static void rotate(double[][] a, int n, int col, int i, int j) {
 
         double z = Math.max(Math.abs(a[i][col]), Math.abs(a[j][col]));
-        if(z == 0) {
+        if(isZero(a[i][col])) {
             return;
         }
         double aip = a[i][col]/z;
@@ -123,7 +123,7 @@ public class Inverter {
 
 
     public static void triangulate(double[][] a, int n, int[] col_transp, int[] row_transp) {
-        for(int j = 0; j < n-1; j++) {/*
+        for(int j = 0; j < n-1; j++) {
             // Перестановка столбцов
             int maxIndex = j;
             double max = -1;
@@ -149,7 +149,7 @@ public class Inverter {
                 }
             }
             row_transp[j+1] = maxIndex;
-            swapRows(a, n, j+1, maxIndex);*/
+            swapRows(a, n, j+1, maxIndex);
 
             for(int i = j+1; i < n; i++) {
                 rotate(a, n, j, i, j);
@@ -190,16 +190,19 @@ public class Inverter {
             }
             // Осуществить поворот
             for(int i = n-1; i >= j+1; i--) {
+                if(isZero(q[i])) {
+                    continue;
+                }
                 double[] params = loadTransformationParams(q[i]);
                 double c = params[0];
                 double s = params[1];
                 rotateReverse(a, n, i, i, j, c, s);
             }
             // Поменять #строки местами
-            //swapRowsBack(a, n, j+1, row_transp[j+1]);
+            swapRowsBack(a, n, j+1, row_transp[j+1]);
 
             // Поменять #столбцы местами
-            //swapColsBack(a, n, j, col_transp[j]);
+            swapColsBack(a, n, j, col_transp[j]);
         }
 
     }
@@ -231,6 +234,11 @@ public class Inverter {
             }
         }
         return ret;
+    }
+
+    public static boolean isZero(double d) {
+        double EPSILON = 1.e-15;
+        return (Math.abs(d) < EPSILON);
     }
 
 
