@@ -1,4 +1,6 @@
-package ru.omsu.imit.mgen;
+package ru.omsu.imit.mgen.rotate_matrix_invert;
+
+import ru.omsu.imit.mgen.Gen;
 
 public class Inverter {
 

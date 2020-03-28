@@ -83,10 +83,10 @@ public class Main {
 
         for(int i = 0; i < symbols.size(); i++) {
             //System.out.printf("%c: %d %3f\n", symbols.get(i), values[i], values[i]*100./count);
-            deviation += Math.abs(values[i] - average);
+            deviation += (values[i] - average) * (values[i] - average);
         }
 
-        return Math.round(deviation);
+        return Math.round(Math.sqrt(deviation));
     }
 
 
