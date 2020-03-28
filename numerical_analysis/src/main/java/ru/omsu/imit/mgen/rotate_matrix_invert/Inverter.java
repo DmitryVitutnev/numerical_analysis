@@ -7,9 +7,9 @@ public class Inverter {
     public static double[][] createIdentityMatrix(int n) {
         double[][] ret = new double[n][n];
 
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                if(i == j) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
                     ret[i][j] = 1.;
                 } else {
                     ret[i][j] = 0.;
@@ -21,14 +21,14 @@ public class Inverter {
 
     public static void invertTriangle(double[][] a, int n) {
         double[] arr = new double[n];
-        for(int i = n-1; i >= 0; i--) {
-            for(int j = i; j < n; j++) {
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
                 arr[j] = a[i][j];
             }
-            a[i][i] = 1./arr[i];
-            for(int j = i+1; j < n; j++) {
+            a[i][i] = 1. / arr[i];
+            for (int j = i + 1; j < n; j++) {
                 a[i][j] = 0.;
-                for(int k = i+1; k <= j; k++) {
+                for (int k = i + 1; k <= j; k++) {
                     a[i][j] -= arr[k] * a[k][j];
                 }
                 a[i][j] /= arr[i];
@@ -43,22 +43,22 @@ public class Inverter {
     public static void rotate(double[][] a, int n, int col, int i, int j) {
 
         double z = Math.max(Math.abs(a[i][col]), Math.abs(a[j][col]));
-        if(isZero(a[i][col])) {
+        if (isZero(a[i][col])) {
             return;
         }
-        double aip = a[i][col]/z;
-        double ajp = a[j][col]/z;
+        double aip = a[i][col] / z;
+        double ajp = a[j][col] / z;
         double alp = Math.min(Math.abs(aip), Math.abs(ajp));
         double c;
         double s;
-        c = ajp/Math.sqrt(1+alp*alp);
-        s = -aip/Math.sqrt(1+alp*alp);
+        c = ajp / Math.sqrt(1 + alp * alp);
+        s = -aip / Math.sqrt(1 + alp * alp);
         //c = a[j][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
         //s = -a[i][col]/Math.sqrt(a[i][col]*a[i][col]+a[j][col]*a[j][col]);
 
 
         double aj, ai;
-        for(int k = col; k < n; k++) {
+        for (int k = col; k < n; k++) {
             aj = a[j][k];
             ai = a[i][k];
 
@@ -70,7 +70,7 @@ public class Inverter {
 
     public static void rotateReverse(double[][] a, int n, int row, int i, int j, double c, double s) {
         double aj, ai;
-        for(int k = 0; k < n; k++) {
+        for (int k = 0; k < n; k++) {
             aj = a[k][j];
             ai = a[k][i];
 
@@ -81,7 +81,7 @@ public class Inverter {
 
     public static void swapCols(double[][] a, int n, int i, int j) {
         double x;
-        for(int k = 0; k < n; k++) {
+        for (int k = 0; k < n; k++) {
             x = a[k][i];
             a[k][i] = a[k][j];
             a[k][j] = x;
@@ -90,7 +90,7 @@ public class Inverter {
 
     public static void swapColsBack(double[][] a, int n, int i, int coli) {
         double x;
-        for(int k = i; k < n; k++) {
+        for (int k = i; k < n; k++) {
             x = a[i][k];
             a[i][k] = a[coli][k];
             a[coli][k] = x;
@@ -99,7 +99,7 @@ public class Inverter {
 
     public static void swapRows(double[][] a, int n, int i, int j) {
         double x;
-        for(int k =i-1; k < n; k++) {
+        for (int k = i - 1; k < n; k++) {
             x = a[i][k];
             a[i][k] = a[j][k];
             a[j][k] = x;
@@ -108,7 +108,7 @@ public class Inverter {
 
     public static void swapRowsBack(double[][] a, int n, int i, int rowi) {
         double x;
-        for(int k = 0; k < n; k++) {
+        for (int k = 0; k < n; k++) {
             x = a[k][i];
             a[k][i] = a[k][rowi];
             a[k][rowi] = x;
@@ -117,20 +117,20 @@ public class Inverter {
 
     public static double colNorm(double[][] a, int n, int col) {
         double ret = 0;
-        for(int k = 0; k < n; k++) {
-            ret += a[k][col]*a[k][col];
+        for (int k = 0; k < n; k++) {
+            ret += a[k][col] * a[k][col];
         }
         return ret;
     }
 
 
     public static void triangulate(double[][] a, int n, int[] col_transp, int[] row_transp) {
-        for(int j = 0; j < n-1; j++) {
+        for (int j = 0; j < n - 1; j++) {
             // Перестановка столбцов
             int maxIndex = j;
             double max = -1;
             double x;
-            for(int k = j; k < n-1; k++) {
+            for (int k = j; k < n - 1; k++) {
                 x = colNorm(a, n, k);
                 if (x > max) {
                     max = x;
@@ -143,17 +143,17 @@ public class Inverter {
             // Перестановка строк
             maxIndex = j + 1;
             max = -1;
-            for(int k = j + 1; k < n; k++) {
+            for (int k = j + 1; k < n; k++) {
                 x = Math.abs(a[k][j]);
                 if (x > max) {
                     max = x;
                     maxIndex = k;
                 }
             }
-            row_transp[j+1] = maxIndex;
-            swapRows(a, n, j+1, maxIndex);
+            row_transp[j + 1] = maxIndex;
+            swapRows(a, n, j + 1, maxIndex);
 
-            for(int i = j+1; i < n; i++) {
+            for (int i = j + 1; i < n; i++) {
                 rotate(a, n, j, i, j);
             }
         }
@@ -171,12 +171,12 @@ public class Inverter {
         boolean negativeS = q < 0;
         double c, s;
 
-        if(negativeS) {
+        if (negativeS) {
             c = q + 1;
-            s = -Math.sqrt(1 - c*c);
+            s = -Math.sqrt(1 - c * c);
         } else {
             c = q - 1;
-            s = Math.sqrt(1 - c*c);
+            s = Math.sqrt(1 - c * c);
         }
         double[] ret = {c, s};
         return ret;
@@ -185,14 +185,14 @@ public class Inverter {
     public static void multiplication(double[][] a, int n, int[] col_transp, int[] row_transp) {
         double[] q = new double[n];
 
-        for(int j = n-2; j >=0; j--) {
-            for(int i = n-1; i >= j+1; i--) {
+        for (int j = n - 2; j >= 0; j--) {
+            for (int i = n - 1; i >= j + 1; i--) {
                 q[i] = a[i][j];
                 a[i][j] = 0;
             }
             // Осуществить поворот
-            for(int i = n-1; i >= j+1; i--) {
-                if(isZero(q[i])) {
+            for (int i = n - 1; i >= j + 1; i--) {
+                if (isZero(q[i])) {
                     continue;
                 }
                 double[] params = loadTransformationParams(q[i]);
@@ -201,7 +201,7 @@ public class Inverter {
                 rotateReverse(a, n, i, i, j, c, s);
             }
             // Поменять #строки местами
-            swapRowsBack(a, n, j+1, row_transp[j+1]);
+            swapRowsBack(a, n, j + 1, row_transp[j + 1]);
 
             // Поменять #столбцы местами
             swapColsBack(a, n, j, col_transp[j]);

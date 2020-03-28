@@ -30,19 +30,19 @@ public class RichardsonDemo {
     public static void test() {
         int n = 100;
         double alpha = 1.;
-        double beta  = 1.;
+        double beta = 1.;
 
         double[][] a = new double[n][];
-        for (int i = 0; i < n; i++)	a[i] = new double[n];
+        for (int i = 0; i < n; i++) a[i] = new double[n];
 
         double[][] a_inv = new double[n][];
-        for (int i = 0; i < n; i++)	a_inv[i] = new double[n];
+        for (int i = 0; i < n; i++) a_inv[i] = new double[n];
 
         Gen g = new Gen();
-        g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 );
+        g.mygen(a, a_inv, n, alpha, beta, 1, 2, 1, 1);
 
         double[] x = new double[n];
-        for (int i = 0; i < n; i++)	x[i] = Math.random();
+        for (int i = 0; i < n; i++) x[i] = Math.random();
 
         double[] f = new double[n];
 
@@ -57,7 +57,7 @@ public class RichardsonDemo {
 
         double[] difference = new double[n];
 
-        for (int i = 0; i < n; i++)	difference[i] = x[i] - xResult[i];
+        for (int i = 0; i < n; i++) difference[i] = x[i] - xResult[i];
 
         for (int i = 0; i < n; i++) {
             System.out.println("" + x[i] + " " + xResult[i] + " " + difference[i]);

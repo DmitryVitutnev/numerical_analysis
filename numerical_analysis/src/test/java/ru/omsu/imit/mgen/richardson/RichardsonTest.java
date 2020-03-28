@@ -2,6 +2,7 @@ package ru.omsu.imit.mgen.richardson;
 
 import org.junit.Test;
 import ru.omsu.imit.mgen.Gen;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,19 +20,19 @@ public class RichardsonTest {
         double beta = 1.;
         PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "symmetric.csv"), false));
 
-        writer.println(""+"alpha"+";"+"beta"+";"+"||A||"+";"+"||A-1||"+";"+"v(A)"+";"+"||z||"+";"+"ksi"+";"+"||r||"+";"+"rho");
+        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
         writer.flush();
 
         int count = 0;
-        while(true) {
+        while (true) {
 
 
             double[][] a = new double[n][n];
             double[][] a_inv = new double[n][n];
             Gen g = new Gen();
-            g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 0, 1 );
+            g.mygen(a, a_inv, n, alpha, beta, 1, 2, 0, 1);
             double[] xReal = new double[n];
-            for(int i = 0; i < n; i++) {
+            for (int i = 0; i < n; i++) {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
@@ -41,22 +42,22 @@ public class RichardsonTest {
             double normAr = g.matr_inf_norm(a_inv, n);
             double vA = normA * normAr;
             double[] z = new double[n];
-            for(int i = 0; i < n; i++) z[i] = 0.;
+            for (int i = 0; i < n; i++) z[i] = 0.;
             Richardson.addVector(z, x, 1);
             Richardson.addVector(z, xReal, -1);
             double normZ = Richardson.vectorNorm(z);
             double ksi = normZ / Richardson.vectorNorm(xReal);
             double[] r = new double[n];
-            for(int i = 0; i < n; i++) r[i] = 0.;
+            for (int i = 0; i < n; i++) r[i] = 0.;
             Richardson.addVector(r, Richardson.multiplyMatrixOnVector(a, x), 1);
             Richardson.addVector(r, f, -1);
             double normR = Richardson.vectorNorm(r);
-            double rho = normR/Richardson.vectorNorm(f);
+            double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n",alpha,beta,normA,normAr,vA,normZ,ksi,normR,rho);
+            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if(ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= 10) {
                 break;
             }
 
@@ -64,7 +65,7 @@ public class RichardsonTest {
             count++;
         }
 
-        writer.println(""+"alpha"+";"+"beta"+";"+"||A||"+";"+"||A-1||"+";"+"v(A)"+";"+"||z||"+";"+"ksi"+";"+"||r||"+";"+"rho");
+        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
         writer.flush();
 
         n = 100;
@@ -72,14 +73,14 @@ public class RichardsonTest {
         beta = 1.;
 
         count = 0;
-        while(true) {
+        while (true) {
 
             double[][] a = new double[n][n];
             double[][] a_inv = new double[n][n];
             Gen g = new Gen();
-            g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 0, 1 );
+            g.mygen(a, a_inv, n, alpha, beta, 1, 2, 0, 1);
             double[] xReal = new double[n];
-            for(int i = 0; i < n; i++) {
+            for (int i = 0; i < n; i++) {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
@@ -89,22 +90,22 @@ public class RichardsonTest {
             double normAr = g.matr_inf_norm(a_inv, n);
             double vA = normA * normAr;
             double[] z = new double[n];
-            for(int i = 0; i < n; i++) z[i] = 0.;
+            for (int i = 0; i < n; i++) z[i] = 0.;
             Richardson.addVector(z, x, 1);
             Richardson.addVector(z, xReal, -1);
             double normZ = Richardson.vectorNorm(z);
             double ksi = normZ / Richardson.vectorNorm(xReal);
             double[] r = new double[n];
-            for(int i = 0; i < n; i++) r[i] = 0.;
+            for (int i = 0; i < n; i++) r[i] = 0.;
             Richardson.addVector(r, Richardson.multiplyMatrixOnVector(a, x), 1);
             Richardson.addVector(r, f, -1);
             double normR = Richardson.vectorNorm(r);
-            double rho = normR/Richardson.vectorNorm(f);
+            double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n",alpha,beta,normA,normAr,vA,normZ,ksi,normR,rho);
+            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if(ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= 10) {
                 break;
             }
 
@@ -123,19 +124,19 @@ public class RichardsonTest {
         double beta = 1.;
         PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "simple.csv"), false));
 
-        writer.println(""+"alpha"+";"+"beta"+";"+"||A||"+";"+"||A-1||"+";"+"v(A)"+";"+"||z||"+";"+"ksi"+";"+"||r||"+";"+"rho");
+        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
         writer.flush();
 
         int count = 0;
-        while(true) {
+        while (true) {
 
 
             double[][] a = new double[n][n];
             double[][] a_inv = new double[n][n];
             Gen g = new Gen();
-            g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 );
+            g.mygen(a, a_inv, n, alpha, beta, 1, 2, 1, 1);
             double[] xReal = new double[n];
-            for(int i = 0; i < n; i++) {
+            for (int i = 0; i < n; i++) {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
@@ -145,22 +146,22 @@ public class RichardsonTest {
             double normAr = g.matr_inf_norm(a_inv, n);
             double vA = normA * normAr;
             double[] z = new double[n];
-            for(int i = 0; i < n; i++) z[i] = 0.;
+            for (int i = 0; i < n; i++) z[i] = 0.;
             Richardson.addVector(z, x, 1);
             Richardson.addVector(z, xReal, -1);
             double normZ = Richardson.vectorNorm(z);
             double ksi = normZ / Richardson.vectorNorm(xReal);
             double[] r = new double[n];
-            for(int i = 0; i < n; i++) r[i] = 0.;
+            for (int i = 0; i < n; i++) r[i] = 0.;
             Richardson.addVector(r, Richardson.multiplyMatrixOnVector(a, x), 1);
             Richardson.addVector(r, f, -1);
             double normR = Richardson.vectorNorm(r);
-            double rho = normR/Richardson.vectorNorm(f);
+            double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n",alpha,beta,normA,normAr,vA,normZ,ksi,normR,rho);
+            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if(ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= 10) {
                 break;
             }
 
@@ -168,7 +169,7 @@ public class RichardsonTest {
             count++;
         }
 
-        writer.println(""+"alpha"+";"+"beta"+";"+"||A||"+";"+"||A-1||"+";"+"v(A)"+";"+"||z||"+";"+"ksi"+";"+"||r||"+";"+"rho");
+        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
         writer.flush();
 
         n = 100;
@@ -176,14 +177,14 @@ public class RichardsonTest {
         beta = 1.;
 
         count = 0;
-        while(true) {
+        while (true) {
 
             double[][] a = new double[n][n];
             double[][] a_inv = new double[n][n];
             Gen g = new Gen();
-            g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 1, 1 );
+            g.mygen(a, a_inv, n, alpha, beta, 1, 2, 1, 1);
             double[] xReal = new double[n];
-            for(int i = 0; i < n; i++) {
+            for (int i = 0; i < n; i++) {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
@@ -193,22 +194,22 @@ public class RichardsonTest {
             double normAr = g.matr_inf_norm(a_inv, n);
             double vA = normA * normAr;
             double[] z = new double[n];
-            for(int i = 0; i < n; i++) z[i] = 0.;
+            for (int i = 0; i < n; i++) z[i] = 0.;
             Richardson.addVector(z, x, 1);
             Richardson.addVector(z, xReal, -1);
             double normZ = Richardson.vectorNorm(z);
             double ksi = normZ / Richardson.vectorNorm(xReal);
             double[] r = new double[n];
-            for(int i = 0; i < n; i++) r[i] = 0.;
+            for (int i = 0; i < n; i++) r[i] = 0.;
             Richardson.addVector(r, Richardson.multiplyMatrixOnVector(a, x), 1);
             Richardson.addVector(r, f, -1);
             double normR = Richardson.vectorNorm(r);
-            double rho = normR/Richardson.vectorNorm(f);
+            double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n",alpha,beta,normA,normAr,vA,normZ,ksi,normR,rho);
+            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if(ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= 10) {
                 break;
             }
 
@@ -227,19 +228,19 @@ public class RichardsonTest {
         double beta = 1.;
         PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "jordan.csv"), false));
 
-        writer.println(""+"alpha"+";"+"beta"+";"+"||A||"+";"+"||A-1||"+";"+"v(A)"+";"+"||z||"+";"+"ksi"+";"+"||r||"+";"+"rho");
+        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
         writer.flush();
 
         int count = 0;
-        while(true) {
+        while (true) {
 
 
             double[][] a = new double[n][n];
             double[][] a_inv = new double[n][n];
             Gen g = new Gen();
-            g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 2, 1 );
+            g.mygen(a, a_inv, n, alpha, beta, 1, 2, 2, 1);
             double[] xReal = new double[n];
-            for(int i = 0; i < n; i++) {
+            for (int i = 0; i < n; i++) {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
@@ -249,22 +250,22 @@ public class RichardsonTest {
             double normAr = g.matr_inf_norm(a_inv, n);
             double vA = normA * normAr;
             double[] z = new double[n];
-            for(int i = 0; i < n; i++) z[i] = 0.;
+            for (int i = 0; i < n; i++) z[i] = 0.;
             Richardson.addVector(z, x, 1);
             Richardson.addVector(z, xReal, -1);
             double normZ = Richardson.vectorNorm(z);
             double ksi = normZ / Richardson.vectorNorm(xReal);
             double[] r = new double[n];
-            for(int i = 0; i < n; i++) r[i] = 0.;
+            for (int i = 0; i < n; i++) r[i] = 0.;
             Richardson.addVector(r, Richardson.multiplyMatrixOnVector(a, x), 1);
             Richardson.addVector(r, f, -1);
             double normR = Richardson.vectorNorm(r);
-            double rho = normR/Richardson.vectorNorm(f);
+            double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n",alpha,beta,normA,normAr,vA,normZ,ksi,normR,rho);
+            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if(ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= 10) {
                 break;
             }
 
@@ -272,7 +273,7 @@ public class RichardsonTest {
             count++;
         }
 
-        writer.println(""+"alpha"+";"+"beta"+";"+"||A||"+";"+"||A-1||"+";"+"v(A)"+";"+"||z||"+";"+"ksi"+";"+"||r||"+";"+"rho");
+        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
         writer.flush();
 
         n = 100;
@@ -280,14 +281,14 @@ public class RichardsonTest {
         beta = 1.;
 
         count = 0;
-        while(true) {
+        while (true) {
 
             double[][] a = new double[n][n];
             double[][] a_inv = new double[n][n];
             Gen g = new Gen();
-            g.mygen ( a, a_inv, n, alpha, beta, 1, 2, 2, 1 );
+            g.mygen(a, a_inv, n, alpha, beta, 1, 2, 2, 1);
             double[] xReal = new double[n];
-            for(int i = 0; i < n; i++) {
+            for (int i = 0; i < n; i++) {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
@@ -297,22 +298,22 @@ public class RichardsonTest {
             double normAr = g.matr_inf_norm(a_inv, n);
             double vA = normA * normAr;
             double[] z = new double[n];
-            for(int i = 0; i < n; i++) z[i] = 0.;
+            for (int i = 0; i < n; i++) z[i] = 0.;
             Richardson.addVector(z, x, 1);
             Richardson.addVector(z, xReal, -1);
             double normZ = Richardson.vectorNorm(z);
             double ksi = normZ / Richardson.vectorNorm(xReal);
             double[] r = new double[n];
-            for(int i = 0; i < n; i++) r[i] = 0.;
+            for (int i = 0; i < n; i++) r[i] = 0.;
             Richardson.addVector(r, Richardson.multiplyMatrixOnVector(a, x), 1);
             Richardson.addVector(r, f, -1);
             double normR = Richardson.vectorNorm(r);
-            double rho = normR/Richardson.vectorNorm(f);
+            double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n",alpha,beta,normA,normAr,vA,normZ,ksi,normR,rho);
+            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if(ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= 10) {
                 break;
             }
 
@@ -322,7 +323,6 @@ public class RichardsonTest {
 
 
     }
-
 
 
 }
