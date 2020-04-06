@@ -53,9 +53,8 @@ public class RichardsonDemo {
             }
         }
 
-        double[] eigens = Richardson.approximateEigens(a);
 
-        double[] xResult = Richardson.solveSLAE(a, f, eigens[0], eigens[1], 1, 1.e-6);
+        double[] xResult = Richardson.solveSLAE(a, f, 1, 1.e-6);
 
 
 

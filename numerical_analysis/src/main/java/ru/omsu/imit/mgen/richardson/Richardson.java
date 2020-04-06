@@ -2,13 +2,17 @@ package ru.omsu.imit.mgen.richardson;
 
 public class Richardson {
 
-    public static double[] solveSLAE(double[][] a, double[] f, double alpha, double beta, int r, double epsilon) {
+    public static double[] solveSLAE(double[][] a, double[] f, int r, double epsilon) {
 
         // I took formulas from here https://old.math.tsu.ru/EEResources/cm/text/5_11_1.htm
 
         int len = f.length;
         double[] x1 = new double[len];
         double[] x0 = new double[len];
+
+        double[] eigens = approximateEigens(a);
+        double alpha = eigens[0];
+        double beta = eigens[1];
 
         for (int i = 0; i < len; i++) {
             x1[i] = 0;
@@ -34,7 +38,7 @@ public class Richardson {
             for (int i = 0; i < len; i++) {
                 temp[i] = x1[i] - x0[i];
             }
-            //System.out.println(x1[0]);
+            System.out.println(x1[0]);
             if(vectorNorm(temp) < epsilon) {
                 break;
             }

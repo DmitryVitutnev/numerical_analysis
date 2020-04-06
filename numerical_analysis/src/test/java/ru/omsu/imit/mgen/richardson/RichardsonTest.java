@@ -14,6 +14,7 @@ public class RichardsonTest {
 
     private double EPSILON = 1.e-4;
     private double MAX_COUNT = 4;
+    private int R = 4;
 
     @Test
     public void symmetricTest() throws IOException {
@@ -39,7 +40,7 @@ public class RichardsonTest {
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
 
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
+            double[] x = Richardson.solveSLAE(a, f, R, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -87,7 +88,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
+            double[] x = Richardson.solveSLAE(a, f, R, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -143,7 +144,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
+            double[] x = Richardson.solveSLAE(a, f, R, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -191,7 +192,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
+            double[] x = Richardson.solveSLAE(a, f, R, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -247,7 +248,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
+            double[] x = Richardson.solveSLAE(a, f, R, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -295,7 +296,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
+            double[] x = Richardson.solveSLAE(a, f, R, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
