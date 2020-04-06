@@ -12,6 +12,8 @@ public class RichardsonTest {
 
     private String directory = "results/richardson/";
 
+    private double EPSILON = 1.e-4;
+    private double MAX_COUNT = 4;
 
     @Test
     public void symmetricTest() throws IOException {
@@ -36,7 +38,8 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10);
+
+            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -57,7 +60,7 @@ public class RichardsonTest {
             writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if (ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= MAX_COUNT) {
                 break;
             }
 
@@ -84,7 +87,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10);
+            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -105,7 +108,7 @@ public class RichardsonTest {
             writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if (ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= MAX_COUNT) {
                 break;
             }
 
@@ -140,7 +143,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10);
+            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -161,7 +164,7 @@ public class RichardsonTest {
             writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if (ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= MAX_COUNT) {
                 break;
             }
 
@@ -188,7 +191,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10);
+            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -209,7 +212,7 @@ public class RichardsonTest {
             writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if (ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= MAX_COUNT) {
                 break;
             }
 
@@ -244,7 +247,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10);
+            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -265,7 +268,7 @@ public class RichardsonTest {
             writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if (ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= MAX_COUNT) {
                 break;
             }
 
@@ -292,7 +295,7 @@ public class RichardsonTest {
                 xReal[i] = Math.random();
             }
             double[] f = Richardson.multiplyMatrixOnVector(a, xReal);
-            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10);
+            double[] x = Richardson.solveSLAE(a, f, alpha, beta, 10, EPSILON);
 
             double normA = g.matr_inf_norm(a, n);
             double normAr = g.matr_inf_norm(a_inv, n);
@@ -313,7 +316,7 @@ public class RichardsonTest {
             writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
-            if (ksi > 10 || count >= 10) {
+            if (ksi > 10 || count >= MAX_COUNT) {
                 break;
             }
 

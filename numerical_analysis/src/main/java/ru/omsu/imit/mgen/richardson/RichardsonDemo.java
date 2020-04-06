@@ -30,7 +30,7 @@ public class RichardsonDemo {
     public static void test() {
         int n = 100;
         double alpha = 1.;
-        double beta = 1.;
+        double beta = 1.e+5;
 
         double[][] a = new double[n][];
         for (int i = 0; i < n; i++) a[i] = new double[n];
@@ -53,7 +53,11 @@ public class RichardsonDemo {
             }
         }
 
-        double[] xResult = Richardson.solveSLAE(a, f, alpha, beta, 10);
+        double[] eigens = Richardson.approximateEigens(a);
+
+        double[] xResult = Richardson.solveSLAE(a, f, eigens[0], eigens[1], 1, 1.e-6);
+
+
 
         double[] difference = new double[n];
 

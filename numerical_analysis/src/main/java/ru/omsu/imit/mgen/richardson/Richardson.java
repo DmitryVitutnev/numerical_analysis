@@ -2,34 +2,77 @@ package ru.omsu.imit.mgen.richardson;
 
 public class Richardson {
 
-    public static double[] solveSLAE(double[][] a, double[] f, double alpha, double beta, int r) {
+    public static double[] solveSLAE(double[][] a, double[] f, double alpha, double beta, int r, double epsilon) {
 
         // I took formulas from here https://old.math.tsu.ru/EEResources/cm/text/5_11_1.htm
 
         int len = f.length;
-        double[] x = new double[len];
-        for (int i = 0; i < len; i++) {
-            x[i] = 0;
-        }
-        double[] prevX = new double[len];
+        double[] x1 = new double[len];
+        double[] x0 = new double[len];
 
+        for (int i = 0; i < len; i++) {
+            x1[i] = 0;
+        }
+        double[] temp = new double[len];
         double t0 = 2. / (alpha + beta);
         double eta = alpha / beta;
         double rho0 = (1 - eta) / (1 + eta);
-        double rho1 = (1 - Math.sqrt(eta)) / (1 + Math.sqrt(eta));
         int s = (int) Math.pow(2, r);
         double[] t = new double[s];
-        for (int k = 0; k < s; k++) {
-            t[k] = calculateT(t0, rho0, k, len);
+        while (true) {
+            copyArray(x1, x0);
+            for (int k = 0; k < s; k++) {
+                t[k] = calculateT(t0, rho0, k, len);
+            }
+            t = optimalSort(t, r);
+            for (int i = 0; i < s; i++) {
+                temp = multiplyMatrixOnVector(a, x1);
+                addVector(x1, temp, -1 * t[i]);
+                addVector(x1, f, t[i]);
+            }
+
+            for (int i = 0; i < len; i++) {
+                temp[i] = x1[i] - x0[i];
+            }
+            //System.out.println(x1[0]);
+            if(vectorNorm(temp) < epsilon) {
+                break;
+            }
         }
-        t = optimalSort(t, r);
-        for (int i = 0; i < s; i++) {
-            copyArray(x, prevX);
-            double[] temp = multiplyMatrixOnVector(a, prevX);
-            addVector(x, temp, -1 * t[i]);
-            addVector(x, f, t[i]);
+
+
+        return x1;
+    }
+
+    public static double[] approximateEigens(double[][] a) {
+
+        int n = a.length;
+
+        double center;
+        double radiusRow, radiusCol;
+        double minRow, minCol, maxRow, maxCol;
+        minRow = minCol = Double.MAX_VALUE;
+        maxRow = maxCol = 0;
+        for (int i = 0; i < n; i++) {
+            center = a[i][i];
+            radiusRow = 0;
+            radiusCol = 0;
+            for (int j = 0; j < n; j++) {
+                if (j == i) {
+                    continue;
+                }
+                radiusRow += Math.abs(a[i][j]);
+                radiusCol += Math.abs(a[j][i]);
+            }
+            minRow = Math.min(minRow, center - radiusRow);
+            minCol = Math.min(minCol, center - radiusCol);
+            maxRow = Math.max(maxRow, center + radiusRow);
+            maxCol = Math.max(maxCol, center + radiusCol);
         }
-        return x;
+        double min = Math.max(minRow, minCol);
+        double max = Math.min(maxRow, maxCol);
+
+        return new double[]{min, max};
     }
 
     public static void copyArray(double[] from, double[] to) {
