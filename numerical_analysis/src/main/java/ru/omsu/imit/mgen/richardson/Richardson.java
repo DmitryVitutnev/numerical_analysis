@@ -38,7 +38,7 @@ public class Richardson {
             for (int i = 0; i < len; i++) {
                 temp[i] = x1[i] - x0[i];
             }
-            System.out.println(x1[0]);
+            //System.out.println(x1[0]);
             if(vectorNorm(temp) < epsilon) {
                 break;
             }
