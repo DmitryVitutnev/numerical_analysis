@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 
 public class RichardsonTest {
 
@@ -18,6 +19,7 @@ public class RichardsonTest {
 
     @Test
     public void symmetricTest() throws IOException {
+        Locale.setDefault(Locale.ENGLISH);
         int n = 100;
         double alpha = 1.;
         double beta = 1.;
@@ -123,6 +125,7 @@ public class RichardsonTest {
 
     @Test
     public void simpleTest() throws IOException {
+        Locale.setDefault(Locale.ENGLISH);
         int n = 100;
         double alpha = 1.;
         double beta = 1.;
@@ -227,6 +230,7 @@ public class RichardsonTest {
 
     @Test
     public void jordanTest() throws IOException {
+        Locale.setDefault(Locale.ENGLISH);
         int n = 100;
         double alpha = 1.;
         double beta = 1.;
