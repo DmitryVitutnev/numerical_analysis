@@ -21,9 +21,9 @@ public class RichardsonTest {
         int n = 100;
         double alpha = 1.;
         double beta = 1.;
-        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "symmetric.csv"), false));
+        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "symmetric1.csv"), false));
 
-        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
+        writer.println("" + "alpha" + "," + "beta" + "," + "||A||" + "," + "||A-1||" + "," + "v(A)" + "," + "||z||" + "," + "ksi" + "," + "||r||" + "," + "rho");
         writer.flush();
 
         int count = 0;
@@ -58,7 +58,7 @@ public class RichardsonTest {
             double normR = Richardson.vectorNorm(r);
             double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
+            writer.printf("%e,%e,%e,%e,%e,%e,%e,%e,%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
             if (ksi > 10 || count >= MAX_COUNT) {
@@ -69,7 +69,7 @@ public class RichardsonTest {
             count++;
         }
 
-        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
+        writer.println("" + "alpha" + "," + "beta" + "," + "||A||" + "," + "||A-1||" + "," + "v(A)" + "," + "||z||" + "," + "ksi" + "," + "||r||" + "," + "rho");
         writer.flush();
 
         n = 100;
@@ -106,7 +106,7 @@ public class RichardsonTest {
             double normR = Richardson.vectorNorm(r);
             double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
+            writer.printf("%e,%e,%e,%e,%e,%e,%e,%e,%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
             if (ksi > 10 || count >= MAX_COUNT) {
@@ -126,9 +126,9 @@ public class RichardsonTest {
         int n = 100;
         double alpha = 1.;
         double beta = 1.;
-        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "simple.csv"), false));
+        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "simple1.csv"), false));
 
-        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
+        writer.println("" + "alpha" + "," + "beta" + "," + "||A||" + "," + "||A-1||" + "," + "v(A)" + "," + "||z||" + "," + "ksi" + "," + "||r||" + "," + "rho");
         writer.flush();
 
         int count = 0;
@@ -162,7 +162,7 @@ public class RichardsonTest {
             double normR = Richardson.vectorNorm(r);
             double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
+            writer.printf("%e,%e,%e,%e,%e,%e,%e,%e,%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
             if (ksi > 10 || count >= MAX_COUNT) {
@@ -173,7 +173,7 @@ public class RichardsonTest {
             count++;
         }
 
-        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
+        writer.println("" + "alpha" + "," + "beta" + "," + "||A||" + "," + "||A-1||" + "," + "v(A)" + "," + "||z||" + "," + "ksi" + "," + "||r||" + "," + "rho");
         writer.flush();
 
         n = 100;
@@ -210,7 +210,7 @@ public class RichardsonTest {
             double normR = Richardson.vectorNorm(r);
             double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
+            writer.printf("%e,%e,%e,%e,%e,%e,%e,%e,%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
             if (ksi > 10 || count >= MAX_COUNT) {
@@ -230,9 +230,9 @@ public class RichardsonTest {
         int n = 100;
         double alpha = 1.;
         double beta = 1.;
-        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "jordan.csv"), false));
+        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "jordan1.csv"), false));
 
-        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
+        writer.println("" + "alpha" + "," + "beta" + "," + "||A||" + "," + "||A-1||" + "," + "v(A)" + "," + "||z||" + "," + "ksi" + "," + "||r||" + "," + "rho");
         writer.flush();
 
         int count = 0;
@@ -266,7 +266,7 @@ public class RichardsonTest {
             double normR = Richardson.vectorNorm(r);
             double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
+            writer.printf("%e,%e,%e,%e,%e,%e,%e,%e,%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
             if (ksi > 10 || count >= MAX_COUNT) {
@@ -277,7 +277,7 @@ public class RichardsonTest {
             count++;
         }
 
-        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||" + ";" + "rho");
+        writer.println("" + "alpha" + "," + "beta" + "," + "||A||" + "," + "||A-1||" + "," + "v(A)" + "," + "||z||" + "," + "ksi" + "," + "||r||" + "," + "rho");
         writer.flush();
 
         n = 100;
@@ -314,7 +314,7 @@ public class RichardsonTest {
             double normR = Richardson.vectorNorm(r);
             double rho = normR / Richardson.vectorNorm(f);
 
-            writer.printf("%e;%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
+            writer.printf("%e,%e,%e,%e,%e,%e,%e,%e,%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR, rho);
             writer.flush();
 
             if (ksi > 10 || count >= MAX_COUNT) {
