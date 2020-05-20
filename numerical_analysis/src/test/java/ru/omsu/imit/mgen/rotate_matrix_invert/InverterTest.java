@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 
 public class InverterTest {
 
@@ -17,12 +18,13 @@ public class InverterTest {
 
     @Test
     public void UniteAllTests() throws IOException {
+        Locale.setDefault(Locale.ENGLISH);
         String folder = "results/rotate_inverter/";
         PrintWriter writer;
         ALPHA = 1.;
         BETA = 1.;
-        writer = new PrintWriter(new FileWriter(new File(folder + "symmetric.csv"), false));
-        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||");
+        writer = new PrintWriter(new FileWriter(new File(folder + "symmetric1.csv"), false));
+        writer.println("" + "alpha" + "," + "beta" + "," + "||A||" + "," + "||A-1||" + "," + "v(A)" + "," + "||z||" + "," + "ksi" + "," + "||r||");
         writer.flush();
         for (int i = 0; i <= 15; i++) {
             Test1();
@@ -33,8 +35,8 @@ public class InverterTest {
             Test1();
             ALPHA /= 10;
         }
-        writer = new PrintWriter(new FileWriter(new File(folder + "simple.csv"), false));
-        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||");
+        writer = new PrintWriter(new FileWriter(new File(folder + "simple1.csv"), false));
+        writer.println("" + "alpha" + "," + "beta" + "," + "||A||" + "," + "||A-1||" + "," + "v(A)" + "," + "||z||" + "," + "ksi" + "," + "||r||");
         writer.flush();
         ALPHA = 1.;
         BETA = 1.;
@@ -47,8 +49,8 @@ public class InverterTest {
             Test2();
             ALPHA /= 10;
         }
-        writer = new PrintWriter(new FileWriter(new File(folder + "jordan.csv"), false));
-        writer.println("" + "alpha" + ";" + "beta" + ";" + "||A||" + ";" + "||A-1||" + ";" + "v(A)" + ";" + "||z||" + ";" + "ksi" + ";" + "||r||");
+        writer = new PrintWriter(new FileWriter(new File(folder + "jordan1.csv"), false));
+        writer.println("" + "alpha" + "," + "beta" + "," + "||A||" + "," + "||A-1||" + "," + "v(A)" + "," + "||z||" + "," + "ksi" + "," + "||r||");
         writer.flush();
         ALPHA = 1.;
         BETA = 1.;
@@ -114,9 +116,9 @@ public class InverterTest {
 
 
         String directory = "results/rotate_inverter/";
-        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "symmetric.csv"), true));
+        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "symmetric1.csv"), true));
 
-        writer.printf("%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR);
+        writer.printf("%e,%e,%e,%e,%e,%e,%e,%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR);
         writer.flush();
 
 		/*g.print_matr(a_old, n);
@@ -173,9 +175,9 @@ public class InverterTest {
         System.out.printf("||r|| = %e\n", normR);
 
         String directory = "results/rotate_inverter/";
-        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "simple.csv"), true));
+        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "simple1.csv"), true));
 
-        writer.printf("%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR);
+        writer.printf("%e,%e,%e,%e,%e,%e,%e,%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR);
         writer.flush();
 
         System.out.println("------------------------------------");
@@ -228,9 +230,9 @@ public class InverterTest {
         System.out.printf("||r|| = %e\n", normR);
 
         String directory = "results/rotate_inverter/";
-        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "jordan.csv"), true));
+        PrintWriter writer = new PrintWriter(new FileWriter(new File(directory + "jordan1.csv"), true));
 
-        writer.printf("%e;%e;%e;%e;%e;%e;%e;%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR);
+        writer.printf("%e,%e,%e,%e,%e,%e,%e,%e\n", alpha, beta, normA, normAr, vA, normZ, ksi, normR);
         writer.flush();
 
         System.out.println("------------------------------------");
